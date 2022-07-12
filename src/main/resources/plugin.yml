@@ -1,0 +1,15 @@
+name: TheBestRanks
+version: 2.0
+author: thelegend
+api-version: 1.13
+main: com.zorbeytorunoglu.thebestranks.TBR
+depend:
+  - PlaceholderAPI
+softdepend:
+  - Vault
+commands:
+  rank:
+    description: Main command
+    aliases:
+      - tbr
+      - thebestranks

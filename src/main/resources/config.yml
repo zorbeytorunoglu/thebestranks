@@ -1,0 +1,8 @@
+chat-format:
+  enabled: true
+  default-format: '%thebestranks_rank% &r%vault_rankprefix% &f%player_name%&7: &r%message%'
+  per-group:
+    owner: '%vault_rankprefix% &4%player_name%&7: &r%message%'
+    admin: '%vault_rankprefix% &c%player_name%&7: &r%message%'
+messages:
+  no-perm: '#084cfbY#1054fbo#185cfbu #2064fbd#276cfbo #2f74fbn#377cfco#3f84fct #478cfch#4f94fca#579cfcv#5ea3fce #66abfcp#6eb3fce#76bbfcr#7ec3fcm#86cbfdi#8ed3fds#95dbfds#9de3fdi#a5ebfdo#adf3fdn'

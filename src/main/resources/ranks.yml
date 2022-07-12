@@ -1,0 +1,14 @@
+'1':
+  prefix: '&a[Rookie]'
+  requirements:
+    papi:
+      '%vault_eco_balance%':
+        required: 10
+        gui_message: '&7Money &a%your%&7/&c%required%'
+        deny_message: '&7You do not have enough money'
+      '%player_level%':
+         required: 20
+         gui_message: 'Anani sikim'
+         deny_message: 'baban orosbu'
+  rank_up_commands:
+    - 'eco give %player_name% 1000'
