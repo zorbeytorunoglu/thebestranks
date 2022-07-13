@@ -1,14 +1,31 @@
+'0':
+  prefix: '&7[&aRookie&7]'
 '1':
-  prefix: '&a[Rookie]'
+  prefix: '&7[&bExperienced&7]'
   requirements:
     papi:
       '%vault_eco_balance%':
-        required: 10
+        required: 100
         gui_message: '&7Money &a%your%&7/&c%required%'
         deny_message: '&7You do not have enough money'
       '%player_level%':
-         required: 20
-         gui_message: 'Anani sikim'
-         deny_message: 'baban orosbu'
+        required: 5
+        gui_message: '&7Level &a%your%&7/&c%required%'
+        deny_message: '&7You need to have at least &a5 &7levels'
   rank_up_commands:
     - 'eco give %player_name% 1000'
+    - 'say You are great %player_name%!'
+'2':
+  prefix: '&7[&4Ruthless&7]'
+  requirements:
+    papi:
+      '%vault_eco_balance%':
+        required: 1000
+        gui_message: '&7Money &a%your%&7/&c%required%'
+        deny_message: '&7You do not have enough money'
+      '%player_level%':
+        required: 10
+        gui_message: '&7Level &a%your%&7/&c%required%'
+        deny_message: '&7You need to have at least &a10 &7levels'
+  rank_up_commands:
+    - 'eco give %player_name% 10000'
