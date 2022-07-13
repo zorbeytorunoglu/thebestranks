@@ -28,6 +28,10 @@ class Rank {
         return commands
     }
 
+    fun getRequirements(): MutableList<Requirement> {
+        return requirements
+    }
+
     companion object {
         fun loadRanks(ranksResource: Resource): ArrayList<Rank> {
 
@@ -41,29 +45,32 @@ class Rank {
 
                 val prefix=ranksResource.getString("$id.prefix")
 
-                val commands: List<String> = ranksResource.getStringList("$id.commands")
-
                 val commandsArray: ArrayList<String> = ArrayList()
 
-                commandsArray.addAll(commands)
+                if (ranksResource.isList("$id.rank_up_commands")) {
+                    val commands: List<String> = ranksResource.getStringList("$id.rank_up_commands")
+                    commandsArray.addAll(commands)
+                }
 
                 val rank: Rank = Rank(id,prefix,commandsArray)
 
-                val reqSet: Set<String> = ranksResource.getConfigurationSection("$id.requirements.papi").getKeys(false)
-
-                if (reqSet.isEmpty()) continue
-
                 val reqList: MutableList<Requirement> = mutableListOf()
 
-                for (req in reqSet) {
+                if (ranksResource.getConfigurationSection("$id.requirements")!=null) {
+                    val reqSet: Set<String> = ranksResource.getConfigurationSection("$id.requirements.papi").getKeys(false)
 
-                    val requirement: Requirement = Requirement(rank,req,
-                    ranksResource.getInt("$id.requirements.papi.$req.required"),
-                    ranksResource.getString("$id.requirements.papi.$req.deny_message"),
-                        ranksResource.getString("$id.requirements.papi.$req.gui_message"))
+                    if (reqSet.isEmpty()) continue
 
-                    reqList.add(requirement)
+                    for (req in reqSet) {
 
+                        val requirement: Requirement = Requirement(rank,req,
+                            ranksResource.getInt("$id.requirements.papi.$req.required"),
+                            ranksResource.getString("$id.requirements.papi.$req.deny_message"),
+                            ranksResource.getString("$id.requirements.papi.$req.gui_message"))
+
+                        reqList.add(requirement)
+
+                    }
                 }
 
                 rank.requirements=reqList
