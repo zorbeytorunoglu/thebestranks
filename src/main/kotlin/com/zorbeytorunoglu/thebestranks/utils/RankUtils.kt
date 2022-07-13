@@ -33,7 +33,9 @@ class RankUtils(private val plugin: TBR) {
         val nextRankInt: Int = rank.getId().toInt()+1
 
         for (r in plugin.getRanks()) {
+
             if (r.getId().toInt()==nextRankInt) return true
+
         }
 
         return false
@@ -59,10 +61,11 @@ class RankUtils(private val plugin: TBR) {
 
         if (rank.getCommands().isEmpty()) return
 
-        for (i in 0..rank.getCommands().size) {
+        for (i: Int in 0 until rank.getCommands().size) {
+
             object : BukkitRunnable() {
                 override fun run() {
-                    Bukkit.getServer().dispatchCommand(Bukkit.getServer().consoleSender, rank.getCommands()[i])
+                    Bukkit.getServer().dispatchCommand(Bukkit.getServer().consoleSender, rank.getCommands()[i].replace("%player_name%", player.name))
                 }
             }.runTaskLater(plugin, i.toLong())
         }
@@ -76,6 +79,50 @@ class RankUtils(private val plugin: TBR) {
         val rank: Rank = getRank(player)
 
         plugin.getPlayerRanks()[player.uniqueId] = this.getNextRank(rank)
+
+    }
+
+    fun getFirstRank(): Rank? {
+
+        if (plugin.getRanks().isEmpty()) return null
+
+        for (rank in plugin.getRanks()) {
+            if (rank.getId() == "0") return rank
+        }
+
+        return null
+
+    }
+
+    fun rankExists(rankId: String): Boolean {
+
+        if (plugin.getRanks().isEmpty()) return false
+
+        return plugin.getRanks().any { it.getId() == rankId }
+
+    }
+
+    fun getRank(rankId: String): Rank? {
+
+        if (plugin.getRanks().isEmpty()) return null
+
+        for (rank in plugin.getRanks()) {
+            if (rank.getId() == rankId) return rank
+        }
+
+        return null
+
+    }
+
+    fun setRank(rankId: String, player: Player) {
+
+        plugin.getPlayerRanks()[player.uniqueId] = getRank(rankId)!!
+
+    }
+
+    fun setRank(rank: Rank, player: Player) {
+
+        plugin.getPlayerRanks()[player.uniqueId] = rank
 
     }
 
