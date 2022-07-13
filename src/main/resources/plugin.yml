@@ -13,3 +13,7 @@ commands:
     aliases:
       - tbr
       - thebestranks
+permissions:
+  thebestranks.rank:
+    description: Permission for main rank
+    default: true
