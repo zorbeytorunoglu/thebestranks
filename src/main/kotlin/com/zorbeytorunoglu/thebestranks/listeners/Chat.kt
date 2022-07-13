@@ -16,17 +16,17 @@ class Chat(private val plugin: TBR): Listener {
 
         var format: String = plugin.getSettingsHandler().getChatFormatDefaultFormat()
 
-        var group: String?=null
-
         try {
-            group=plugin.getPermissionHook()!!.getPrimaryGroup(event.player)
+
+            val group: String?=plugin.getPermissionHook()!!.getPrimaryGroup(event.player)
+
             if (plugin.getSettingsHandler().getChatFormatPerGroupFormats().containsKey(group)) {
                 format = plugin.getSettingsHandler().getChatFormatPerGroupFormats()[group]!!
                 if (PlaceholderAPI.containsPlaceholders(format)) {
                     format=PlaceholderAPI.setPlaceholders(event.player, format)
                 }
                 format=format.replace("%message%", event.message)
-                event.format=StringUtils.hex(format.toString())
+                event.format = StringUtils.hex(format.replace("%", "%%"))
                 return
             }
         } catch (e: UnsupportedOperationException) {
@@ -36,7 +36,9 @@ class Chat(private val plugin: TBR): Listener {
         if (PlaceholderAPI.containsPlaceholders(format)) {
             format=PlaceholderAPI.setPlaceholders(event.player, format)
         }
-        event.format=format.replace("%message%", event.message)
+
+        format=format.replace("%message%", event.message)
+        event.format = StringUtils.hex(format.replace("%", "%%"))
 
     }
 
