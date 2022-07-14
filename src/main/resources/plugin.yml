@@ -1,5 +1,5 @@
 name: TheBestRanks
-version: 2.0
+version: 2.0.0
 author: thelegend
 api-version: 1.13
 main: com.zorbeytorunoglu.thebestranks.TBR
@@ -16,4 +16,10 @@ commands:
 permissions:
   thebestranks.rank:
     description: Permission for main rank
+    default: true
+  thebestranks.setrank:
+    description: Permission to set rank for players
+    default: op
+  thebestranks.check:
+    description: Permission to check other players ranks
     default: true
