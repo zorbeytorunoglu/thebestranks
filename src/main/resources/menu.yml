@@ -1,0 +1,23 @@
+#If you make it 'enabled: false', /rank won't open the GUI
+enabled: true
+title: '#fb0000&lT#fa1702&lh#f92e05&le#f84507&lB#f75c09&le#f6730c&ls#f58a0e&lt#f4a111&lR#f3b813&la#f2cf15&ln#f1e618&lk#f0fd1a&ls'
+open-sound: BLOCK_CHEST_OPEN
+close-sound: BLOCK_CHEST_CLOSE
+locked-item:
+  material: RED_STAINED_GLASS_PANE
+  display_name: '&c&lLOCKED'
+  lore:
+    - '&7Rank up to unlock!'
+current-item:
+  material: PINK_STAINED_GLASS_PANE
+  display_name: '&d&lCURRENT'
+  lore:
+    - '&7Your current rank is: %rank%'
+in-progress-item:
+  material: YELLOW_STAINED_GLASS_PANE
+  display_name: '&e&lIN PROGRESS'
+passed-item:
+  material: LIME_STAINED_GLASS_PANE
+  display_name: '&a&lPASSED'
+  lore:
+    - '&7You have already passed: %rank%&7!'
