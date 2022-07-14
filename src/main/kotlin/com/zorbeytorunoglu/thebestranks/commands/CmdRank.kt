@@ -27,18 +27,38 @@ class CmdRank(private val plugin: TBR): CommandExecutor {
             }
 
             if (args.isEmpty()) {
-                return if (sender !is Player) {
+
+                if (sender !is Player) {
                     sender.sendMessage(plugin.getMessageHandler().getOnlyInGame())
-                    false
+                    return false
                 } else {
+
                     val player: Player = sender
-                    sender.sendMessage(plugin.getMessageHandler().getYourRank().replace("%rank%",
-                        StringUtils.hex(plugin.getUtils().getRankUtils().getRank(player).getPrefix())))
-                    true
+
+                    return if (plugin.getMenu().getEnabled()) {
+
+                        player.playSound(player.location,plugin.getMenu().getOpenSound(),1.0F, 1.0F)
+                        player.openInventory(plugin.getMenu().createInventory(player))
+
+                        true
+                    } else {
+
+                        sender.sendMessage(plugin.getMessageHandler().getYourRank().replace("%rank%",
+                            StringUtils.hex(plugin.getUtils().getRankUtils().getRank(player).getPrefix())))
+
+                        true
+                    }
+
                 }
+
             }
 
             if (args[0].equals("up",true)) {
+
+                if (!sender.hasPermission("thebestranks.rank")) {
+                    sender.sendMessage(plugin.getMessageHandler().getNoPerm())
+                    return false
+                }
 
                 if (sender !is Player) {
                     sender.sendMessage(plugin.getMessageHandler().getOnlyInGame())
@@ -83,6 +103,11 @@ class CmdRank(private val plugin: TBR): CommandExecutor {
 
             } else if (args[0].equals("set", true)) {
 
+                if (!sender.hasPermission("thebestranks.setrank")) {
+                    sender.sendMessage(plugin.getMessageHandler().getNoPerm())
+                    return false
+                }
+
                 if (args.size!=3) {
                     sender.sendMessage(plugin.getMessageHandler().getRankSetUsage())
                     return false
@@ -110,10 +135,45 @@ class CmdRank(private val plugin: TBR): CommandExecutor {
                 return true
 
             } else if (args[0].equals("help", true)) {
-                //TODO: Help
+
+                if (sender !is Player || sender.hasPermission("thebestranks.setrank")) {
+                    for (line in plugin.getMessageHandler().getHelpAdmin()) {
+                        sender.sendMessage(StringUtils.hex(line))
+                    }
+                    return true
+                }
+
+                return if (sender.hasPermission("thebestranks.rank")) {
+                    for (line in plugin.getMessageHandler().getHelpPlayers()) {
+                        sender.sendMessage(StringUtils.hex(line))
+                    }
+                    true
+                } else {
+                    sender.sendMessage(plugin.getMessageHandler().getNoPerm())
+                    false
+                }
+
             } else {
-                //TODO: If the argument is a player, show their rank
+
+                if (Bukkit.getServer().getPlayer(args[0])!=null) {
+                    if (!sender.hasPermission("thebestranks.check")) {
+                        sender.sendMessage(plugin.getMessageHandler().getNoPerm())
+                        return false
+                    }
+
+                    val player: Player = Bukkit.getServer().getPlayer(args[0])
+
+                    sender.sendMessage(plugin.getMessageHandler().getCheckRank()
+                        .replace("%rank%", StringUtils.hex(plugin.getUtils().getRankUtils().getRank(player.uniqueId).getPrefix()))
+                        .replace("%player%", player.name))
+
+                    return true
+
+                }
+
             }
+
+            sender.sendMessage(plugin.getMessageHandler().getUnknownArg())
 
         }
 
