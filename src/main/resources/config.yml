@@ -16,8 +16,20 @@ messages:
   rank-set: '&e&lTBR &a%player%&7''s rank is set to &a%rank%'
   no-rank-prefix: '&7[&3No Rank&7]'
   no-greater-rank-prefix: '&7No Greater Rank'
-  help-message-players:
+  check-rank: '&e&lTBR &a%player%&7''s current rank is &r%rank%'
+  unknown-arg: '&e&lTBR &7We could not understand what you want to do. Try &a/rank help'
+  status-done: '&a&l✔'
+  status-not-done: '&c&l✘'
+  help-players:
     - '&e&lThe Best Ranks &7- &fEasy and simple rank plugin'
     - ' '
     - '&7/rank &8- &fTo see your current rank'
     - '&7/rank up &8- &fTo rank up if you satisfy all the requirements'
+    - '&7/rank help &8- &fTo see this help message'
+  help-admin:
+    - '&e&lThe Best Ranks &7- &fEasy and simple rank plugin'
+    - ' '
+    - '&7/rank &8- &fTo see your current rank'
+    - '&7/rank up &8- &fTo rank up if you satisfy all the requirements'
+    - '&7/rank set &a<player> <rank> &8- &fTo set a rank for a player'
+    - '&7/rank help &8- &fTo see this help message'
