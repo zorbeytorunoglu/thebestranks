@@ -7,13 +7,15 @@ class Rank {
     private val id: String
     private val prefix: String
     private val commands: ArrayList<String>
+    private val guiLore: ArrayList<String>
 
     private lateinit var requirements: MutableList<Requirement>
 
-    constructor(id: String, prefix: String, commands: ArrayList<String>) {
+    constructor(id: String, prefix: String, commands: ArrayList<String>, guiLore: ArrayList<String>) {
         this.id=id
         this.prefix=prefix
         this.commands=commands
+        this.guiLore=guiLore
     }
 
     fun getId(): String {
@@ -30,6 +32,10 @@ class Rank {
 
     fun getRequirements(): MutableList<Requirement> {
         return requirements
+    }
+
+    fun getGuiLore(): ArrayList<String> {
+        return guiLore
     }
 
     companion object {
@@ -52,7 +58,14 @@ class Rank {
                     commandsArray.addAll(commands)
                 }
 
-                val rank: Rank = Rank(id,prefix,commandsArray)
+                val guiLoreArray: ArrayList<String> = ArrayList()
+
+                if (ranksResource.isList("$id.gui_lore")) {
+                    val lore: List<String> = ranksResource.getStringList("$id.gui_lore")
+                    guiLoreArray.addAll(lore)
+                }
+
+                val rank: Rank = Rank(id,prefix,commandsArray, guiLoreArray)
 
                 val reqList: MutableList<Requirement> = mutableListOf()
 
