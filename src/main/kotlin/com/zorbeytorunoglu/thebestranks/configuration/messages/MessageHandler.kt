@@ -48,4 +48,28 @@ class MessageHandler(private val container: MessageContainer) {
         return container.noGreaterRankPrefix
     }
 
+    fun getHelpPlayers(): List<String> {
+        return container.helpPlayers
+    }
+
+    fun getHelpAdmin(): List<String> {
+        return container.helpAdmin
+    }
+
+    fun getCheckRank(): String {
+        return container.checkRank
+    }
+
+    fun getUnknownArg(): String {
+        return container.unknownArg
+    }
+
+    fun getStatusDone(): String {
+        return container.statusDone
+    }
+
+    fun getStatusNotDone(): String {
+        return container.statusNotDone
+    }
+
 }

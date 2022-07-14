@@ -16,6 +16,12 @@ class MessageContainer {
     val rankSet: String
     val noRankPrefix: String
     val noGreaterRankPrefix: String
+    val helpPlayers: List<String>
+    val helpAdmin: List<String>
+    val checkRank: String
+    val unknownArg: String
+    val statusDone: String
+    val statusNotDone: String
 
     constructor(configResource: Resource) {
         this.noPerm=StringUtils.hex(configResource.getString("messages.no-perm"))
@@ -29,6 +35,12 @@ class MessageContainer {
         this.rankSet=StringUtils.hex(configResource.getString("messages.rank-set"))
         this.noRankPrefix=StringUtils.hex(configResource.getString("messages.no-rank-prefix"))
         this.noGreaterRankPrefix=StringUtils.hex(configResource.getString("messages.no-greater-rank-prefix"))
+        this.helpPlayers= configResource.getList("messages.help-players") as List<String>
+        this.helpAdmin = configResource.getList("messages.help-admin") as List<String>
+        this.checkRank=StringUtils.hex(configResource.getString("messages.check-rank"))
+        this.unknownArg=StringUtils.hex(configResource.getString("messages.unknown-arg"))
+        this.statusDone=StringUtils.hex(configResource.getString("messages.status-done"))
+        this.statusNotDone=StringUtils.hex(configResource.getString("messages.status-not-done"))
     }
 
 }
