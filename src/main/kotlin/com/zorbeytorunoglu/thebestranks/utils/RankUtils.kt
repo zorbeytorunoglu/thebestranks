@@ -126,4 +126,10 @@ class RankUtils(private val plugin: TBR) {
 
     }
 
+    fun rankPassed(player: Player, rank: Rank): Boolean {
+
+        return getRank(player.uniqueId).getId().toInt() > rank.getId().toInt()
+
+    }
+
 }
