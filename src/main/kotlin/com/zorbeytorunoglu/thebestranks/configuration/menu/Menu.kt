@@ -98,9 +98,6 @@ class Menu {
                             plugin.getRanks()[i].getId()) {
                         inventory.setItem(i, replaceInProgressItem(getInProgressItem(),plugin.getRanks()[i],player))
                     } else {
-                        println("şuan i: $i")
-                        println("size: "+plugin.getRanks().size)
-                        println("inventory size: "+getSize())
                         inventory.setItem(i, replaceItemMeta(getLockedItem(),plugin.getRanks()[i]))
                     }
 
