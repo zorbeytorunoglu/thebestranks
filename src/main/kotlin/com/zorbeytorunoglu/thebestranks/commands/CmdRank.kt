@@ -37,10 +37,14 @@ class CmdRank(private val plugin: TBR): CommandExecutor {
 
                     return if (plugin.getMenu().getEnabled()) {
 
-                        player.playSound(player.location,plugin.getMenu().getOpenSound(),1.0F, 1.0F)
+                        if (plugin.getMenu().getOpenSound()!=null) {
+                            player.playSound(player.location,plugin.getMenu().getOpenSound(),1.0F, 1.0F)
+                        }
+
                         player.openInventory(plugin.getMenu().createInventory(player))
 
                         true
+
                     } else {
 
                         sender.sendMessage(plugin.getMessageHandler().getYourRank().replace("%rank%",
