@@ -77,7 +77,7 @@ class Rank {
                     for (req in reqSet) {
 
                         val requirement: Requirement = Requirement(rank,req,
-                            ranksResource.getInt("$id.requirements.papi.$req.required"),
+                            ranksResource.getDouble("$id.requirements.papi.$req.required"),
                             ranksResource.getString("$id.requirements.papi.$req.deny_message"),
                             ranksResource.getString("$id.requirements.papi.$req.gui_message"))
 

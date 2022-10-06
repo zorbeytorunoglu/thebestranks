@@ -52,7 +52,7 @@ class RankUtils(private val plugin: TBR) {
 
     fun requirementFulfilled(player: Player, requirement: Requirement): Boolean {
 
-        return requirement.getRequired()<=StringUtils.getNumberFromString(
+        return requirement.getRequired()<=StringUtils.getDoubleFromString(
                 ChatColor.stripColor(PlaceholderAPI.setPlaceholders(player, requirement.getPlaceholder())))
 
     }
