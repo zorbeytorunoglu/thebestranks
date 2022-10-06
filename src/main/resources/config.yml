@@ -1,3 +1,22 @@
+#Note: PLUGIN WILL NOT WORK IF YOU DON'T CONFIGURE THE RANKS.YML ACCORDINGLY TO YOUR SERVER
+#PLUGIN 99% WON'T WORK AT YOUR FIRST START SINCE YOU DIDN'T CONFIGURE IT YET
+#
+#Please check the wiki page to see how you need to configure ranks.yml:
+#https://github.com/zorbeytorunoglu/thebestranks/wiki/How-to-use
+#
+#SQL system is in beta, let me know if you happen to find any bugs.
+#Discord Server: https://discord.com/invite/dp3R6A9
+sql:
+  enabled: false
+  host: 'jdbc:mysql://examplehost.com:3306/'
+  db-name: 'databaseName'
+  username: 'databaseUserName'
+  password: 'databaseUserPassword'
+  ranks:
+    table-name: ranks
+    columns:
+      uuid: uuid
+      rank: rank
 chat-format:
   enabled: true
   default-format: '%thebestranks_rank% &r%vault_rankprefix% &f%player_name%&7: &r%message%'
