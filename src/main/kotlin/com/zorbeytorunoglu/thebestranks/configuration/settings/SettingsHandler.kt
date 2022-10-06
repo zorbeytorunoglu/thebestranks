@@ -14,4 +14,36 @@ class SettingsHandler(private val settingsContainer: SettingsContainer) {
         return settingsContainer.chatFormatPerGroupFormats
     }
 
+    fun getSqlEnabled(): Boolean {
+        return settingsContainer.sqlEnabled
+    }
+
+    fun getSqlHost(): String {
+        return settingsContainer.sqlHost
+    }
+
+    fun getSqlDatabaseName(): String {
+        return settingsContainer.sqlDatabaseName
+    }
+
+    fun getSqlUsername(): String {
+        return settingsContainer.sqlUsername
+    }
+
+    fun getSqlPassword(): String {
+        return settingsContainer.sqlPassword
+    }
+
+    fun getSqlRanksTableName(): String {
+        return settingsContainer.sqlRanksTableName
+    }
+
+    fun getSqlRanksUUIDColumn(): String {
+        return settingsContainer.sqlRanksUUIDColumn
+    }
+
+    fun getSqlRanksRankColumn(): String {
+        return settingsContainer.sqlRanksRankColumn
+    }
+
 }

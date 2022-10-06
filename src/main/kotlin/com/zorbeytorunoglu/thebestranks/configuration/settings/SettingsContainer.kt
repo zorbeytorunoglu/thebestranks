@@ -9,6 +9,14 @@ class SettingsContainer {
     val chatFormatEnabled: Boolean
     val chatFormatDefaultFormat: String
     val chatFormatPerGroupFormats: MutableMap<String,String>
+    val sqlEnabled: Boolean
+    val sqlHost: String
+    val sqlDatabaseName: String
+    val sqlUsername: String
+    val sqlPassword: String
+    val sqlRanksTableName: String
+    val sqlRanksUUIDColumn: String
+    val sqlRanksRankColumn: String
 
     constructor(configResource: Resource) {
         this.configResource=configResource
@@ -21,8 +29,14 @@ class SettingsContainer {
                 this.chatFormatPerGroupFormats[key] = configResource.getString("chat-format.per-group.$key")
             }
         }
-
-
+        this.sqlEnabled=configResource.getBoolean("sql.enabled")
+        this.sqlHost=configResource.getString("sql.host")
+        this.sqlDatabaseName=configResource.getString("sql.db-name")
+        this.sqlUsername=configResource.getString("sql.username")
+        this.sqlPassword=configResource.getString("sql.password")
+        this.sqlRanksTableName=configResource.getString("sql.ranks.table-name")
+        this.sqlRanksUUIDColumn=configResource.getString("sql.ranks.columns.uuid")
+        this.sqlRanksRankColumn=configResource.getString("sql.ranks.columns.rank")
 
     }
 
