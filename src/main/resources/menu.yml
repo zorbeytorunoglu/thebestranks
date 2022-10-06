@@ -1,8 +1,9 @@
 #If you make it 'enabled: false', /rank won't open the GUI
 enabled: true
 title: '#fb0000&lT#fa1702&lh#f92e05&le#f84507&lB#f75c09&le#f6730c&ls#f58a0e&lt#f4a111&lR#f3b813&la#f2cf15&ln#f1e618&lk#f0fd1a&ls'
-open-sound: BLOCK_CHEST_OPEN
-close-sound: BLOCK_CHEST_CLOSE
+#Do not forget to use your own version's sounds, otherwise, menu won't work
+open-sound: none
+close-sound: none
 locked-item:
   material: RED_STAINED_GLASS_PANE
   display_name: '&c&lLOCKED'

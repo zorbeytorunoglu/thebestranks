@@ -19,8 +19,8 @@ class Menu {
     private val plugin: TBR
     private val enabled: Boolean
     private val title: String
-    private val openSound: Sound
-    private val closeSound: Sound
+    private val openSound: Sound?
+    private val closeSound: Sound?
     private val lockedItem: ItemStack
     private val currentItem: ItemStack
     private val inProgressItem: ItemStack
@@ -28,7 +28,7 @@ class Menu {
     private val size: Int
 
     constructor(plugin: TBR, enabled: Boolean, title: String,
-                openSound: Sound, closeSound: Sound, lockedItem: ItemStack,
+                openSound: Sound?, closeSound: Sound?, lockedItem: ItemStack,
                 currentItem: ItemStack, inProgressItem: ItemStack,
                 passedItem: ItemStack, size: Int) {
         this.plugin=plugin
@@ -52,11 +52,11 @@ class Menu {
         return title
     }
 
-    fun getOpenSound(): Sound {
+    fun getOpenSound(): Sound? {
         return openSound
     }
 
-    fun getCloseSound(): Sound {
+    fun getCloseSound(): Sound? {
         return closeSound
     }
 
@@ -181,8 +181,15 @@ class Menu {
             val enabled: Boolean = menuResource.getBoolean("enabled")
             val title: String = StringUtils.hex(menuResource.getString("title"))
 
-            val openSound: Sound = Sound.valueOf(menuResource.getString("open-sound"))
-            val closeSound: Sound = Sound.valueOf(menuResource.getString("close-sound"))
+            val openSound: Sound? =
+                if (menuResource.getString("open-sound")=="none") null
+                else Sound.valueOf(
+                    menuResource.getString("open-sound"))
+
+            val closeSound: Sound? =
+                if (menuResource.getString("close-sound")=="none") null
+                else Sound.valueOf(
+                    menuResource.getString("close-sound"))
 
             val lockedItem: ItemStack = loadItem("locked-item", menuResource)
             val currentItem: ItemStack = loadItem("current-item", menuResource)
