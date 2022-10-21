@@ -138,6 +138,22 @@ class CmdRank(private val plugin: TBR): CommandExecutor {
 
                 return true
 
+            } else if (args[0].equals("reload", true)) {
+
+                if (!sender.hasPermission("thebestranks.reload")) {
+                    sender.sendMessage(plugin.getMessageHandler().getNoPerm())
+                    return false
+                }
+
+                plugin.loadFiles()
+                plugin.reloadPlayerRanks()
+
+                sender.sendMessage(plugin.getMessageHandler().getReloaded())
+
+                plugin.logger.info("[TheBestRanks] Files and ranks are reloaded.")
+
+                return true
+
             } else if (args[0].equals("help", true)) {
 
                 if (sender !is Player || sender.hasPermission("thebestranks.setrank")) {
