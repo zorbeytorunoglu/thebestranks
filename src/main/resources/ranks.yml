@@ -1,5 +1,8 @@
 '0':
   prefix: '&7[&aRookie&7]'
+  rank_up_commands: #You can remove this section if you don't want to submit any commands when they get their first rank when they join for the first time
+    - 'eco give %player_name% 1000'
+    - 'say Here is your first rank %player_name%!'
 '1':
   prefix: '&7[&bExperienced&7]'
   requirements:

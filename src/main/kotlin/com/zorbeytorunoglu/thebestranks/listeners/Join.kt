@@ -12,6 +12,9 @@ class Join(private val plugin: TBR): Listener {
 
         if (!plugin.getUtils().getRankUtils().playerHasRank(event.player.uniqueId)) {
             plugin.getUtils().getRankUtils().setRank(plugin.getUtils().getRankUtils().getFirstRank()!!,event.player)
+            if (plugin.getUtils().getRankUtils().getFirstRank()!!.getCommands().isNotEmpty()) {
+                plugin.getUtils().getRankUtils().submitCommands(event.player,plugin.getUtils().getRankUtils().getFirstRank()!!)
+            }
         }
 
     }
