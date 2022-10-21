@@ -27,6 +27,10 @@ class PAPI(private val plugin: TBR) : PlaceholderExpansion() {
         return Bukkit.getServer().pluginManager.getPlugin(requiredPlugin)!=null
     }
 
+    override fun persist(): Boolean {
+        return true
+    }
+
     override fun onRequest(player: OfflinePlayer, params: String): String? {
 
         if (params.equals("rank", ignoreCase = true)) {
