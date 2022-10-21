@@ -22,6 +22,7 @@ class MessageContainer {
     val unknownArg: String
     val statusDone: String
     val statusNotDone: String
+    val reloaded: String
 
     constructor(configResource: Resource) {
         this.noPerm=StringUtils.hex(configResource.getString("messages.no-perm"))
@@ -41,6 +42,7 @@ class MessageContainer {
         this.unknownArg=StringUtils.hex(configResource.getString("messages.unknown-arg"))
         this.statusDone=StringUtils.hex(configResource.getString("messages.status-done"))
         this.statusNotDone=StringUtils.hex(configResource.getString("messages.status-not-done"))
+        this.reloaded=StringUtils.hex(configResource.getString("messages.reloaded"))
     }
 
 }

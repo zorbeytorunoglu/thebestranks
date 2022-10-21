@@ -23,3 +23,6 @@ permissions:
   thebestranks.check:
     description: Permission to check other players ranks
     default: true
+  thebestranks.reload:
+    description: Permission to reload all the files
+    default: op

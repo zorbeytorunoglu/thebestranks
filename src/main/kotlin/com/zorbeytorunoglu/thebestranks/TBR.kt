@@ -45,20 +45,7 @@ class TBR: JavaPlugin() {
 
     override fun onEnable() {
 
-        configResource=Resource(this,"config.yml")
-        configResource.load()
-        ranksResource=Resource(this,"ranks.yml")
-        ranksResource.load()
-        dataResource= Resource(this,"data.yml")
-        dataResource.load()
-        menuResource= Resource(this,"menu.yml")
-        menuResource.load()
-
-        ranks=Rank.loadRanks(ranksResource)
-
-        settingsHandler= SettingsHandler(SettingsContainer(configResource))
-
-        messageHandler= MessageHandler(MessageContainer(configResource))
+        loadFiles()
 
         if (Bukkit.getServer().pluginManager.getPlugin("PlaceholderAPI")==null) {
             logger.log(Level.SEVERE, "[TheBestRanks] Plugin can't work without PlaceholderAPI.")
@@ -88,8 +75,6 @@ class TBR: JavaPlugin() {
         mysql= Sql(this)
 
         loadPlayerRanks(playerRanks)
-
-        menu = Menu.loadMenu(this,menuResource)
 
     }
 
@@ -257,6 +242,50 @@ class TBR: JavaPlugin() {
 
             }
         }
+
+    }
+
+    fun loadFiles() {
+        configResource=Resource(this,"config.yml")
+        configResource.load()
+        ranksResource=Resource(this,"ranks.yml")
+        ranksResource.load()
+        dataResource= Resource(this,"data.yml")
+        dataResource.load()
+        menuResource= Resource(this,"menu.yml")
+        menuResource.load()
+
+        ranks=Rank.loadRanks(ranksResource)
+
+        settingsHandler= SettingsHandler(SettingsContainer(configResource))
+
+        messageHandler= MessageHandler(MessageContainer(configResource))
+
+        menu = Menu.loadMenu(this,menuResource)
+
+    }
+
+    fun reloadPlayerRanks() {
+        if (playerRanks.isEmpty()) return
+        val reloadedHash: HashMap<UUID, Rank> = hashMapOf()
+        val ranksIdList: ArrayList<String> = arrayListOf()
+
+        ranks.stream().forEach { ranksIdList.add(it.getId()) }
+
+        for (key in playerRanks.keys) {
+            for (rank in ranks) {
+
+                if (!ranksIdList.contains(playerRanks[key]!!.getId())) {
+                    if (utils.getRankUtils().getFirstRank() == null) continue
+                    reloadedHash[key] = utils.getRankUtils().getFirstRank()!!
+                }
+
+                if (playerRanks[key]!!.getId() == rank.getId()) reloadedHash[key] = rank
+
+            }
+        }
+
+        playerRanks = reloadedHash
 
     }
 

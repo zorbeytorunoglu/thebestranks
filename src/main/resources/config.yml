@@ -39,6 +39,7 @@ messages:
   unknown-arg: '&e&lTBR &7We could not understand what you want to do. Try &a/rank help'
   status-done: '&a&l✔'
   status-not-done: '&c&l✘'
+  reloaded: '&e&lTBR &7All the files are reloaded'
   help-players:
     - '&e&lThe Best Ranks &7- &fEasy and simple rank plugin'
     - ' '

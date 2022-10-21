@@ -72,4 +72,8 @@ class MessageHandler(private val container: MessageContainer) {
         return container.statusNotDone
     }
 
+    fun getReloaded(): String {
+        return container.reloaded
+    }
+
 }
