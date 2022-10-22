@@ -2,6 +2,7 @@ package com.zorbeytorunoglu.thebestranks.api
 
 import com.zorbeytorunoglu.thebestranks.TBR
 import com.zorbeytorunoglu.thebestranks.utils.RankUtils
+import java.lang.UnsupportedOperationException
 
 class TBRAPI private constructor() {
 
@@ -16,7 +17,11 @@ class TBRAPI private constructor() {
 
         fun setPluginInstance(plugin: TBR) {
 
-            TBRAPI.plugin = plugin
+            try {
+                TBRAPI.plugin = plugin
+            } catch (error: UnsupportedOperationException) {
+                throw UnsupportedOperationException("You cannot initialize the plugin instance after it was initialized.")
+            }
 
         }
 
