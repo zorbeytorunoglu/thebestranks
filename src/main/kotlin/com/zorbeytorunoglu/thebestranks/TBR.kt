@@ -1,5 +1,6 @@
 package com.zorbeytorunoglu.thebestranks
 
+import com.zorbeytorunoglu.thebestranks.api.TBRAPI
 import com.zorbeytorunoglu.thebestranks.commands.CmdRank
 import com.zorbeytorunoglu.thebestranks.configuration.Resource
 import com.zorbeytorunoglu.thebestranks.configuration.menu.Menu
@@ -17,6 +18,7 @@ import com.zorbeytorunoglu.thebestranks.utils.Utils
 import net.milkbowl.vault.permission.Permission
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
+import java.lang.UnsupportedOperationException
 import java.sql.ResultSet
 import java.util.*
 import java.util.logging.Level
@@ -76,6 +78,15 @@ class TBR: JavaPlugin() {
 
         loadPlayerRanks(playerRanks)
 
+    }
+
+    override fun onLoad() {
+        try {
+            TBRAPI.setPluginInstance(this)
+        } catch (error: UnsupportedOperationException) {
+            logger.severe("The API instance was already initialized." +
+                    " This can be caused by a reload or another plugin initializing it.")
+        }
     }
 
     override fun onDisable() {
