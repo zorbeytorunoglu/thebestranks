@@ -15,6 +15,11 @@ class StringUtils(private val plugin: TBR) {
             return string.filter { it.isDigit() }.toDouble()
         }
 
+        fun getRequiredFromString(string: String): Any {
+            if (string.all { c -> c.isDigit() }) return string.toDouble()
+            return string
+        }
+
         fun hex(message: String): String {
             var message = message
             val pattern = Pattern.compile("#[a-fA-F0-9]{6}")

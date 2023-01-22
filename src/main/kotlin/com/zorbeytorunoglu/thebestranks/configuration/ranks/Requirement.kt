@@ -1,6 +1,13 @@
 package com.zorbeytorunoglu.thebestranks.configuration.ranks
 
-class Requirement(private val rank: Rank,private val placeholder: String, private val required: Double, private val denyMessage: String, private val guiMessage: String) {
+
+class Requirement(
+    private val rank: Rank,
+    private val placeholder: String,
+    private val required: Any,
+    private val denyMessage: String,
+    private val guiMessage: String
+) {
 
     fun getRank(): Rank {
         return rank
@@ -10,7 +17,7 @@ class Requirement(private val rank: Rank,private val placeholder: String, privat
         return placeholder
     }
 
-    fun getRequired(): Double {
+    fun getRequired(): Any {
         return required
     }
 

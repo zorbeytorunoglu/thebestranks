@@ -51,10 +51,21 @@ class RankUtils(private val plugin: TBR) {
     }
 
     fun requirementFulfilled(player: Player, requirement: Requirement): Boolean {
+        val strippedPlaceholder: String = ChatColor.stripColor(
+            PlaceholderAPI.setPlaceholders(player, requirement.getPlaceholder())
+        )
 
-        return requirement.getRequired()<=StringUtils.getDoubleFromString(
-                ChatColor.stripColor(PlaceholderAPI.setPlaceholders(player, requirement.getPlaceholder())))
+        when (val required = requirement.getRequired()) {
+            is Double -> {
+                return required <= StringUtils.getDoubleFromString(
+                    strippedPlaceholder
+                )
+            }
 
+            else -> {
+                return required == strippedPlaceholder
+            }
+        }
     }
 
     fun submitCommands(player: Player, rank: Rank) {

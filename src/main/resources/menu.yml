@@ -4,6 +4,7 @@ title: '#fb0000&lT#fa1702&lh#f92e05&le#f84507&lB#f75c09&le#f6730c&ls#f58a0e&lt#f
 #Do not forget to use your own version's sounds, otherwise, menu won't work
 open-sound: none
 close-sound: none
+prepend-rank-lore: false
 locked-item:
   material: RED_STAINED_GLASS_PANE
   display_name: '&c&lLOCKED'

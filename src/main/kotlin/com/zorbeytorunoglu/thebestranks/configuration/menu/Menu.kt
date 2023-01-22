@@ -3,7 +3,6 @@ package com.zorbeytorunoglu.thebestranks.configuration.menu
 import com.zorbeytorunoglu.thebestranks.TBR
 import com.zorbeytorunoglu.thebestranks.configuration.Resource
 import com.zorbeytorunoglu.thebestranks.configuration.ranks.Rank
-import com.zorbeytorunoglu.thebestranks.configuration.ranks.Requirement
 import com.zorbeytorunoglu.thebestranks.utils.StringUtils
 import me.clip.placeholderapi.PlaceholderAPI
 import org.bukkit.Bukkit
@@ -18,6 +17,7 @@ class Menu {
 
     private val plugin: TBR
     private val enabled: Boolean
+    private val prependRankLore: Boolean
     private val title: String
     private val openSound: Sound?
     private val closeSound: Sound?
@@ -27,20 +27,23 @@ class Menu {
     private val passedItem: ItemStack
     private val size: Int
 
-    constructor(plugin: TBR, enabled: Boolean, title: String,
-                openSound: Sound?, closeSound: Sound?, lockedItem: ItemStack,
-                currentItem: ItemStack, inProgressItem: ItemStack,
-                passedItem: ItemStack, size: Int) {
-        this.plugin=plugin
-        this.enabled=enabled
-        this.title=title
-        this.openSound=openSound
-        this.closeSound=closeSound
-        this.lockedItem=lockedItem
-        this.currentItem=currentItem
-        this.inProgressItem=inProgressItem
-        this.passedItem=passedItem
-        this.size=size
+    constructor(
+        plugin: TBR, enabled: Boolean, title: String,
+        openSound: Sound?, closeSound: Sound?, lockedItem: ItemStack,
+        currentItem: ItemStack, inProgressItem: ItemStack,
+        passedItem: ItemStack, size: Int, prependRankLore: Boolean
+    ) {
+        this.plugin = plugin
+        this.enabled = enabled
+        this.title = title
+        this.openSound = openSound
+        this.closeSound = closeSound
+        this.lockedItem = lockedItem
+        this.currentItem = currentItem
+        this.inProgressItem = inProgressItem
+        this.passedItem = passedItem
+        this.prependRankLore = prependRankLore
+        this.size = size
 
     }
 
@@ -82,23 +85,26 @@ class Menu {
 
     fun createInventory(player: Player): Inventory {
 
-        val inventory: Inventory= Bukkit.createInventory(player,getSize(),getTitle())
+        val inventory: Inventory = Bukkit.createInventory(player, getSize(), getTitle())
 
         for (i: Int in 0 until plugin.getRanks().size) {
 
-            if (plugin.getUtils().getRankUtils().rankPassed(player,plugin.getRanks()[i])) {
-                inventory.setItem(i,replaceItemMeta(getPassedItem(), plugin.getRanks()[i]))
+            if (plugin.getUtils().getRankUtils().rankPassed(player, plugin.getRanks()[i])) {
+                inventory.setItem(i, replaceItemMeta(getPassedItem(), plugin.getRanks()[i], player))
             } else {
                 if (plugin.getUtils().getRankUtils().getRank(player.uniqueId).getId() == plugin.getRanks()[i].getId()) {
-                    inventory.setItem(i,replaceItemMeta(getCurrentItem(), plugin.getRanks()[i]))
+                    inventory.setItem(i, replaceItemMeta(getCurrentItem(), plugin.getRanks()[i], player))
                 } else {
 
-                    if (plugin.getUtils().getRankUtils().nextRankExists(plugin.getUtils().getRankUtils().getRank(player)) &&
-                            plugin.getUtils().getRankUtils().getNextRank(plugin.getUtils().getRankUtils().getRank(player)).getId() ==
-                            plugin.getRanks()[i].getId()) {
-                        inventory.setItem(i, replaceInProgressItem(getInProgressItem(),plugin.getRanks()[i],player))
+                    if (plugin.getUtils().getRankUtils()
+                            .nextRankExists(plugin.getUtils().getRankUtils().getRank(player)) &&
+                        plugin.getUtils().getRankUtils().getNextRank(plugin.getUtils().getRankUtils().getRank(player))
+                            .getId() ==
+                        plugin.getRanks()[i].getId()
+                    ) {
+                        inventory.setItem(i, replaceItemMeta(getInProgressItem(), plugin.getRanks()[i], player, true))
                     } else {
-                        inventory.setItem(i, replaceItemMeta(getLockedItem(),plugin.getRanks()[i]))
+                        inventory.setItem(i, replaceItemMeta(getLockedItem(), plugin.getRanks()[i], player))
                     }
 
                 }
@@ -111,17 +117,30 @@ class Menu {
 
     }
 
-    private fun replaceItemMeta(itemStack: ItemStack, rank: Rank): ItemStack {
-
+    private fun replaceItemMeta(
+        itemStack: ItemStack,
+        rank: Rank,
+        player: Player,
+        forcePrepend: Boolean = false
+    ): ItemStack {
         val item = ItemStack(itemStack)
         val itemMeta: ItemMeta = item.itemMeta
 
-        itemMeta.displayName=itemMeta.displayName.replace("%rank%", StringUtils.hex(rank.getPrefix()))
+        itemMeta.displayName = itemMeta.displayName.replace("%rank%", StringUtils.hex(rank.getPrefix()))
 
         val lore: ArrayList<String> = ArrayList()
 
-        for (line in itemMeta.lore) {
-            lore.add(line.replace("%rank%", StringUtils.hex(rank.getPrefix())))
+        if (prependRankLore or forcePrepend) {
+            val prependLore: MutableList<String>? = replaceInProgressItem(itemStack, rank, player).itemMeta.lore
+            if (prependLore != null) {
+                lore.addAll(prependLore)
+            }
+        }
+
+        if (itemMeta.lore != null) {
+            for (line in itemMeta.lore) {
+                lore.add(line.replace("%rank%", StringUtils.hex(rank.getPrefix())))
+            }
         }
 
         itemMeta.lore = lore
@@ -145,22 +164,26 @@ class Menu {
             var newLine: String = line
             if (line.contains("%requirement_")) {
 
-                val requirementNo: Int = StringUtils.getNumberFromString(
-                    org.apache.commons.lang.StringUtils.substringBetween(line,"%", "%")
+                val requirementNo = StringUtils.getNumberFromString(
+                    org.apache.commons.lang.StringUtils.substringBetween(line, "%", "%")
                 )
 
-                val requirement: Requirement = rank.getRequirements()[requirementNo]
+                val requirement = rank.getRequirements()[requirementNo]
 
                 var guiMessage: String = requirement.getGuiMessage()
 
-                guiMessage = if (plugin.getUtils().getRankUtils().requirementFulfilled(player,requirement)) {
+                guiMessage = if (plugin.getUtils().getRankUtils().requirementFulfilled(player, requirement)) {
                     guiMessage.replace("%status%", plugin.getMessageHandler().getStatusDone())
                 } else {
                     guiMessage.replace("%status%", plugin.getMessageHandler().getStatusNotDone())
                 }
 
-                newLine=line.replace("%requirement_$requirementNo%", guiMessage.replace("%your%",
-                PlaceholderAPI.setPlaceholders(player,requirement.getPlaceholder())))
+                newLine = line.replace(
+                    "%requirement_$requirementNo%", guiMessage.replace(
+                        "%your%",
+                        PlaceholderAPI.setPlaceholders(player, requirement.getPlaceholder())
+                    ).replace("%required%", requirement.getRequired().toString())
+                )
 
             }
             lore.add(StringUtils.hex(newLine))
@@ -182,24 +205,28 @@ class Menu {
             val title: String = StringUtils.hex(menuResource.getString("title"))
 
             val openSound: Sound? =
-                if (menuResource.getString("open-sound")=="none") null
+                if (menuResource.getString("open-sound") == "none") null
                 else Sound.valueOf(
-                    menuResource.getString("open-sound"))
+                    menuResource.getString("open-sound")
+                )
 
             val closeSound: Sound? =
-                if (menuResource.getString("close-sound")=="none") null
+                if (menuResource.getString("close-sound") == "none") null
                 else Sound.valueOf(
-                    menuResource.getString("close-sound"))
+                    menuResource.getString("close-sound")
+                )
 
             val lockedItem: ItemStack = loadItem("locked-item", menuResource)
             val currentItem: ItemStack = loadItem("current-item", menuResource)
             val inProgressItem: ItemStack = loadItem("in-progress-item", menuResource)
             val passedItem: ItemStack = loadItem("passed-item", menuResource)
-
+            val prependRankLore: Boolean = menuResource.getBoolean("prepend-rank-lore")
             val size: Int = getSize(plugin.getRanks())
 
-            return Menu(plugin, enabled, title, openSound, closeSound, lockedItem, currentItem,
-                inProgressItem, passedItem, size)
+            return Menu(
+                plugin, enabled, title, openSound, closeSound, lockedItem, currentItem,
+                inProgressItem, passedItem, size, prependRankLore
+            )
 
         }
 
