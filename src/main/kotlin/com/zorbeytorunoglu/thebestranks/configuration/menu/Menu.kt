@@ -143,7 +143,7 @@ class Menu {
             }
         }
 
-        itemMeta.lore = lore
+        itemMeta.lore = PlaceholderAPI.setPlaceholders(player, lore)
 
         item.itemMeta = itemMeta
 
@@ -156,7 +156,8 @@ class Menu {
         val item = ItemStack(itemStack)
         val itemMeta: ItemMeta = item.itemMeta
 
-        itemMeta.displayName=itemMeta.displayName.replace("%rank%", StringUtils.hex(rank.getPrefix()))
+        itemMeta.displayName = itemMeta.displayName.replace("%rank%", StringUtils.hex(rank.getPrefix()))
+        itemMeta.displayName = PlaceholderAPI.setPlaceholders(player, itemMeta.displayName)
 
         val lore: ArrayList<String> = ArrayList()
 
