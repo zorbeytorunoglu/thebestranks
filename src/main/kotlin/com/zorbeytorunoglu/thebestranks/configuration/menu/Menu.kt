@@ -181,12 +181,14 @@ class Menu {
 
                 newLine = line.replace(
                     "%requirement_$requirementNo%", guiMessage.replace(
-                        "%your%",
-                        PlaceholderAPI.setPlaceholders(player, requirement.getPlaceholder())
+                        "%your%", PlaceholderAPI.setPlaceholders(player, requirement.getPlaceholder())
                     ).replace("%required%", requirement.getRequired().toString())
                 )
 
             }
+
+            newLine = newLine.replace("%rank%", StringUtils.hex(rank.getPrefix()))
+
             lore.add(StringUtils.hex(newLine))
         }
 
