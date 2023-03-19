@@ -1,6 +1,7 @@
 package com.zorbeytorunoglu.thebestranks.hooks
 
 import com.zorbeytorunoglu.thebestranks.TBR
+import com.zorbeytorunoglu.thebestranks.utils.StringUtils
 import me.clip.placeholderapi.expansion.PlaceholderExpansion
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
@@ -35,7 +36,7 @@ class PAPI(private val plugin: TBR) : PlaceholderExpansion() {
 
         if (params.equals("rank", ignoreCase = true)) {
 
-            return plugin.getUtils().getRankUtils().getRank(player.uniqueId).getPrefix()
+            return StringUtils.hex(plugin.getUtils().getRankUtils().getRank(player.uniqueId).getPrefix())
 
         }
 
