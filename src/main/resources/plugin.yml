@@ -1,0 +1,27 @@
+name: thebestranks
+version: 2.0.0
+api-version: 1.13
+author: thelegend
+main: com.zorbeytorunoglu.thebestranks.TBR
+depend:
+  - kLib
+  - PlaceholderAPI
+commands:
+  rank:
+    description: Main command
+permissions:
+  thebestranks.admin:
+    description: Admin permission
+    default: op
+  thebestranks.set:
+    description: Permission to set ranks
+    default: op
+  thebestranks.check:
+    description: Permission to check ranks
+    default: op
+  thebestranks.rank:
+    description: Permission to use the rank system
+    default: true
+  thebestranks.rankup:
+    description: Permission to rank up
+    default: true
