@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/zorbeytorunoglu/thebestranks/badge)](https://www.codefactor.io/repository/github/zorbeytorunoglu/thebestranks)
+
 # What is TheBestRanks (TBR)?
 
 TheBestRanks (TBR) is an easy to use ranking Spigot plugin for Minecraft that makes having unlimited ranks for players to climb quite easy. You can create as much requirement as you like for a rank with PlaceholderAPI placeholders. It accepts "string, int, double, float, long" values as return.
