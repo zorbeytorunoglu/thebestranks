@@ -1,0 +1,303 @@
+rookie:
+  prefix: '&7[&aRookie&7]'
+  display_name: '&aRookie'
+  commands:
+    - 'say welcome %player%!'
+noobie:
+  prefix: "&7[&eNoobie&7]"
+  display_name: '&eNoobie'
+  requirements:
+    '%vault_eco_balance%':
+      type: INT
+      case: greater
+      value: 100
+      gui_message: '&7Money &a%your%&7/&c100 &r%status%'
+      deny_message: '&7You need to have more money than &c$100'
+    '%player_level%':
+      type: INT
+      case: equals or greater
+      value: 5
+      gui_message: '&7Level &a%your%&7/&c5 &r%status%'
+      deny_message: '&7You need to be at least &clevel 5'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - '&e- %requirement_1%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
+experienced:
+  prefix: "&7[&eExperienced&7]"
+  display_name: '&eExperienced'
+  requirements:
+    '%vault_eco_balance%':
+      type: INT
+      case: equals or greater
+      value: 10000
+      gui_message: '&7Money &a%your%&7/&c10000 &r%status%'
+      deny_message: '&7You need to have at least &c$1000'
+    '%player_food_level%':
+      type: INT
+      case: equals
+      value: 20
+      gui_message: '&7Have a full stomach! &r%status%'
+      deny_message: '&7You seem to be a little bit hungry?!'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - '&e- %requirement_1%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
+diamond_boy:
+  prefix: "&7[&bDiamond Boy&7]"
+  display_name: '&bDiamond Boy'
+  requirements:
+    '%vault_eco_balance%':
+      type: INT
+      case: equals or greater
+      value: 100000
+      gui_message: '&7Money &a%your%&7/&c100000 &r%status%'
+      deny_message: '&7You need to have at least &c$100000'
+    '%player_item_in_hand%':
+      type: STRING
+      case: equals
+      value: DIAMOND_SWORD
+      gui_message: '&7Have a &bdiamond sword&7 in your hand! &r%status%'
+      deny_message: '&7You are not holding a diamond sword!'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - '&e- %requirement_1%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
+poor_again:
+  prefix: "&7[&fPoor Again&7]"
+  display_name: '&fPoor Again'
+  requirements:
+    '%vault_eco_balance%':
+      type: INT
+      case: lesser
+      value: 100
+      gui_message: '&7Have less money than &c$100 &r%status%'
+      deny_message: '&7You need to have less money than &c$100'
+    '%player_biome%':
+      type: STRING
+      case: equals
+      value: PLAINS
+      gui_message: '&7Be in &aPLAINS &7biome! %status%'
+      deny_message: '&7You are not in PLAINS biome!'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - '&e- %requirement_1%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
+survivor:
+  prefix: "&7[&2Survivor&7]"
+  display_name: '&2Survivor'
+  requirements:
+    '%player_minutes_lived%':
+      type: INT
+      case: equals or greater
+      value: 3000
+      gui_message: '&7Stay alive for 3000 minutes! &a%your%&7/&c3000 &r%status%'
+      deny_message: '&7You need to stay alive for at least 3000 minutes!'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
+drowned:
+  prefix: "&7[&dDrowned&7]"
+  display_name: '&dDrowned'
+  requirements:
+    '%player_remaining_air%':
+      type: INT
+      case: equals or lesser
+      value: 0
+      gui_message: '&7Have 0 oxygen! &r%status%'
+      deny_message: '&7You need to have 0 oxygen!'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
+traveller:
+  prefix: "&7[&eTraveller&7]"
+  display_name: '&eTraveller'
+  requirements:
+    '%player_world%':
+      type: STRING
+      case: equals
+      value: Wild
+      gui_message: '&7Be in Wild world! &r%status%'
+      deny_message: '&7You need to be in Wild world!'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
+outsider:
+  prefix: "&7[&cOutsider&7]"
+  display_name: '&cOutsider'
+  requirements:
+    '%player_world%':
+      type: STRING
+      case: not equals
+      value: world
+      gui_message: '&7Do not be in world world! &r%status%'
+      deny_message: '&7You should not be in world world!'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
+darkin:
+  prefix: "&7[&4Darkin&7]"
+  display_name: '&dDarkin'
+  requirements:
+    '%player_world%':
+      type: INT
+      case: equals or lesser
+      value: 0
+      gui_message: '&7Be in complete darkness! &r%status%'
+      deny_message: '&7You need to be in a dark place!'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
+donkey:
+  prefix: "&7[&3Donkey&7]"
+  display_name: '&dDonkey'
+  requirements:
+    '%player_has_empty_slot%':
+      type: STRING
+      case: equals
+      value: no
+      gui_message: '&7Do not have an empty slot! &r%status%'
+      deny_message: '&7You should not have any empty slot!'
+  lore:
+    - ' '
+    - '&7Can you be %rank%&7?!'
+    - '&7If you say yes, you need to satisfy'
+    - '&7our requirements listed here'
+    - ' '
+    - '&eRequirements:'
+    - ' '
+    - '&e- %requirement_0%'
+    - ' '
+    - '&eRewards'
+    - ' '
+    - '&e- &f$1000'
+    - ' '
+    - '&aClick to rank up if you satisfied all!'
+  commands:
+    - 'eco give %player% 1000'
