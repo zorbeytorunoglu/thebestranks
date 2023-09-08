@@ -5,7 +5,6 @@ import com.zorbeytorunoglu.thebestranks.TBR
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.inventory.ClickType
 import org.bukkit.event.inventory.InventoryClickEvent
 
 class OnMenu(private val plugin: TBR): Listener {
@@ -14,8 +13,6 @@ class OnMenu(private val plugin: TBR): Listener {
     fun onMenu(event: InventoryClickEvent) {
 
         if (event.clickedInventory == null) return
-
-        if (event.click != ClickType.LEFT) return
 
         if (event.view.title == null) return
 
