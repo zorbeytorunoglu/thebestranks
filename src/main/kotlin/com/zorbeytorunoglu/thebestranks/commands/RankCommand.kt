@@ -29,9 +29,11 @@ class RankCommand(private val plugin: TBR): CommandExecutor {
                 return false
             }
 
-            val page = plugin.menuManager.createInventory(sender)
+            if (!plugin.menuManager.config.customDesignEnabled)
+                sender.openInventory(plugin.menuManager.createInventory(sender).pages[0])
+            else
+                sender.openInventory(plugin.menuManager.createCustomInventory(sender).pages[0])
 
-            sender.openInventory(page.pages[0])
 
             return true
 
