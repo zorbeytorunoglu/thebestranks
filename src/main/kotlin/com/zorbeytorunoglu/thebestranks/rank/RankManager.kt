@@ -306,7 +306,7 @@ class RankManager(private val plugin: TBR) {
 
     }
 
-    fun rankPassed(player: Player, playerRank: Rank?, rank: Rank): Boolean {
+    fun rankPassed(playerRank: Rank?, rank: Rank): Boolean {
 
         if (playerRank == null) return false
 
@@ -314,7 +314,7 @@ class RankManager(private val plugin: TBR) {
 
     }
 
-    fun isCurrentRank(player: Player, playerRank: Rank?, rank: Rank): Boolean {
+    fun isCurrentRank(playerRank: Rank?, rank: Rank): Boolean {
 
         if (playerRank == null) return false
 
@@ -322,7 +322,7 @@ class RankManager(private val plugin: TBR) {
 
     }
 
-    fun isInProgress(player: Player, playerRank: Rank?, rank: Rank): Boolean {
+    fun isInProgress(playerRank: Rank?, rank: Rank): Boolean {
 
         if (playerRank == null && rank == getFirstRank()) return true
 

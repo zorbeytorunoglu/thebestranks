@@ -171,15 +171,15 @@ class MenuManager(private val plugin: TBR) {
 
         }
 
-        return if (plugin.rankManager.isCurrentRank(player, playerRank, rank)) {
+        return if (plugin.rankManager.isCurrentRank(playerRank, rank)) {
 
             getItemStackWPlaceholders(player, config.currentItem, rank, false)
 
-        } else if (plugin.rankManager.rankPassed(player, playerRank, rank)) {
+        } else if (plugin.rankManager.rankPassed(playerRank, rank)) {
 
             getItemStackWPlaceholders(player, config.passedItem, rank, false)
 
-        } else if (plugin.rankManager.isInProgress(player,playerRank,rank)) {
+        } else if (plugin.rankManager.isInProgress(playerRank,rank)) {
 
             getItemStackWPlaceholders(player,config.inProgressItem, rank, true)
 
