@@ -11,7 +11,7 @@ custom_design:
     - '-xxxxxxx-'
     - '-xxxxxxx-'
     - '-xxxxxxx-'
-    - '---n-p---'
+    - '---p-n---'
   design_codes:
     '-':
       function: item
