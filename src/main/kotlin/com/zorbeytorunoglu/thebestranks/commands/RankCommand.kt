@@ -1,6 +1,7 @@
 package com.zorbeytorunoglu.thebestranks.commands
 
 import com.zorbeytorunoglu.kLib.configuration.createYamlResource
+import com.zorbeytorunoglu.kLib.extensions.colorHex
 import com.zorbeytorunoglu.thebestranks.TBR
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -102,6 +103,26 @@ class RankCommand(private val plugin: TBR): CommandExecutor {
                 sender.sendMessage(plugin.messages.playerHelp.joinToString("\n"))
             } else {
                 sender.sendMessage(plugin.messages.adminHelp.joinToString("\n"))
+            }
+
+            return true
+
+        } else if (args[0] == "ranks") {
+
+            if (!sender.hasPermission("thebestranks.ranks")) {
+                sender.sendMessage(plugin.messages.noPerm)
+                return false
+            }
+
+            if (plugin.rankManager.ranks.isEmpty()) {
+                sender.sendMessage(plugin.messages.noRanks)
+                return false
+            }
+
+            sender.sendMessage(plugin.messages.ranksListHeader)
+
+            plugin.rankManager.ranks.forEach {
+                sender.sendMessage("&f${it.name} &7- ${it.prefix}".colorHex)
             }
 
             return true
