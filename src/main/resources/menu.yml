@@ -2,6 +2,30 @@ name: '&e&lRANKS &7Page %page%'
 size: 54
 done_status: '&a&l✔'
 not_done_status: '&c&l✘'
+
+custom_design:
+  enabled: false
+  design:
+    - '---------'
+    - '-xxxxxxx-'
+    - '-xxxxxxx-'
+    - '-xxxxxxx-'
+    - '-xxxxxxx-'
+    - '---n-p---'
+  design_codes:
+    '-':
+      function: item
+      name: ' '
+      material: STAINED_GLASS_PANE
+      data: 0
+      lore: []
+    'x':
+      function: rank
+    'n':
+      function: next
+    'p':
+      function: previous
+
 passed:
   name: '%rank% &7- &a&lPASSED'
   material: STAINED_GLASS_PANE
