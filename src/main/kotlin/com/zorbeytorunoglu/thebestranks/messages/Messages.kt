@@ -20,5 +20,7 @@ class Messages(file: Resource) {
     val noNextRank = file.getString("no_next_rank")!!.colorHex
     val rankUp = file.getString("rank_up")!!.colorHex
     val reloaded = file.getString("reloaded")!!.colorHex
+    val noRanks = file.getString("no_ranks")!!.colorHex
+    val ranksListHeader = file.getString("ranks_list_header")!!.colorHex
 
 }
