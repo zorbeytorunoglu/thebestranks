@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack
 
 class MenuConfig(private val plugin: TBR, private val file: Resource) {
 
+    val customDesignEnabled = file.getBoolean("custom_design.enabled")
+
     val name: String = file.getString("name")?.colorHex ?: run {
         plugin.severe("Menu name is not set, default value will be used.")
         "&e&lRANKS &7Page &r%page%&7/&r%total_pages%".colorHex
@@ -46,10 +48,6 @@ class MenuConfig(private val plugin: TBR, private val file: Resource) {
 
     private fun getItem(key: String): ItemStack {
 
-        val version = Version.getVersion()
-
-        val legacy = version.isPre(VersionEnum.V1_13_R1)
-
         val name = file.getString("$key.name")?.colorHex ?: run {
             plugin.severe("Item name of $key is not set properly!")
             "&cNot set properly! Check your menu.yml"
@@ -68,7 +66,7 @@ class MenuConfig(private val plugin: TBR, private val file: Resource) {
             it.colorHex
         } ?: emptyList()
 
-        val item = if (legacy) ItemStack(material, 1, data) else ItemStack(material, 1)
+        val item = if (Version.getVersion().isPre(VersionEnum.V1_13_R1)) ItemStack(material, 1, data) else ItemStack(material, 1)
 
         val meta = if (item.hasItemMeta()) item.itemMeta else plugin.server.itemFactory.getItemMeta(item.type)
 
