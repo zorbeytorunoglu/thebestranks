@@ -25,3 +25,6 @@ permissions:
   thebestranks.rankup:
     description: Permission to rank up
     default: true
+  thebestranks.ranks:
+    description: Permission to see the list of ranks.
+    default: op
