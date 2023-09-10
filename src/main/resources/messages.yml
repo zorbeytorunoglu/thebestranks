@@ -10,6 +10,8 @@ check_usage: '&e&lTBR &f/rank check &a<player>'
 no_next_rank: '&e&lTBR &7There are no next rank! You are at the top!'
 rank_up: '&e&lTBR &7You have &eranked up&7! Your new rank is &a%rank%'
 reloaded: '&e&lTBR &7Plugin has been reloaded'
+ranks_list_header: '&e&lTBR &7List of all available ranks:'
+no_ranks: '&e&lTBR &7There are no ranks to show'
 no_requirements_lore:
   - '&7There are no requirements for this rank!'
   - ' '
