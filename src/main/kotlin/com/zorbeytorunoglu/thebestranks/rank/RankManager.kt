@@ -363,7 +363,7 @@ class RankManager(private val plugin: TBR) {
                 val event = RankUpEvent(player, nextRank)
                 plugin.server.pluginManager.callEvent(event)
                 if (!event.isCancelled) {
-                    plugin.rankManager.setRank(player, nextRank)
+                    setRank(player, nextRank)
                     player.sendMessage(plugin.messages.rankUp.replace("%rank%", nextRank.displayName))
                     submitCommands(player, nextRank, event)
                 }
