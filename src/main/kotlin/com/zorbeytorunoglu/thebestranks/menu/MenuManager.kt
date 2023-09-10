@@ -13,8 +13,84 @@ import org.bukkit.inventory.ItemStack
 
 class MenuManager(private val plugin: TBR) {
 
-    val config = MenuConfig(plugin, plugin.createYamlResource("menu.yml").load())
+    private val file = plugin.createYamlResource("menu.yml").load()
+
+    val config = MenuConfig(plugin, file)
     val pages = HashMap<String, Page>()
+
+    private val customDesign = CustomDesign(plugin, file)
+
+    fun createCustomInventory(player: Player): Page {
+
+        val playerRank = plugin.rankManager.getRank(player)
+
+        val inventories = mutableListOf<Inventory>()
+
+        var page = 1
+
+        var inventory = plugin.server.createInventory(null, customDesign.invSize,
+            config.name.replace("%page%", page.toString()))
+
+        var slot = 0
+
+        var rankIndex = 0
+
+        var keepCreating = true
+
+        while (keepCreating) {
+
+            for (cd in customDesign.slots) {
+
+                if (cd == null) {
+
+                    inventory.setItem(slot, null)
+
+                } else {
+
+                    when (cd.functionType) {
+
+                        FunctionType.ITEM -> inventory.setItem(slot, cd.item)
+
+                        FunctionType.RANK -> {
+                            plugin.rankManager.getRank(rankIndex)?.let {
+                                inventory.setItem(slot, getRankItem(player, playerRank, it))
+                                rankIndex++
+                            } ?: run { inventory.setItem(slot, null) }
+                        }
+
+                        FunctionType.NEXT_PAGE -> inventory.setItem(slot, config.nextPageItem)
+
+                        FunctionType.PREVIOUS_PAGE -> inventory.setItem(slot, config.previousPageItem)
+
+                    }
+
+                }
+
+                slot++
+
+                if (slot >= customDesign.invSize) {
+                    inventories.add(inventory)
+                    page++
+                    inventory = plugin.server.createInventory(null, config.size, config.name.replace("%page%", page.toString()))
+                    slot = 0
+
+                    if (rankIndex >= plugin.rankManager.ranks.size-1) {
+                        keepCreating = false
+                    }
+
+                }
+
+            }
+
+        }
+
+        val pageObj = Page(player.uniqueId.toString(), 0, inventories.toList())
+
+        pages[player.uniqueId.toString()] = pageObj
+
+        return pageObj
+
+    }
 
     fun createInventory(player: Player): Page {
 
@@ -43,7 +119,6 @@ class MenuManager(private val plugin: TBR) {
             }
 
             if (index == config.size-10) {
-
                 inv.setItem((config.size-1)-3, config.nextPageItem)
                 inv.setItem((config.size-1)-5, config.previousPageItem)
 
@@ -66,7 +141,7 @@ class MenuManager(private val plugin: TBR) {
 
     }
 
-    fun getMenuRankItems(player: Player): List<ItemStack> {
+    private fun getMenuRankItems(player: Player): List<ItemStack> {
 
         if (plugin.rankManager.ranks.isEmpty()) return emptyList()
 
@@ -84,7 +159,7 @@ class MenuManager(private val plugin: TBR) {
 
     }
 
-    fun getRankItem(player: Player, playerRank: Rank?, rank: Rank): ItemStack {
+    private fun getRankItem(player: Player, playerRank: Rank?, rank: Rank): ItemStack {
 
         if (playerRank == null) {
 
@@ -116,7 +191,7 @@ class MenuManager(private val plugin: TBR) {
 
     }
 
-    fun getItemStackWPlaceholders(player: Player, itemStack: ItemStack, rank: Rank, isInProgressItem: Boolean): ItemStack {
+    private fun getItemStackWPlaceholders(player: Player, itemStack: ItemStack, rank: Rank, isInProgressItem: Boolean): ItemStack {
 
         val item = itemStack.clone()
         val meta = item.itemMeta
