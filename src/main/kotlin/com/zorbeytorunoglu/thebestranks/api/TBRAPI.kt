@@ -1,6 +1,5 @@
 package com.zorbeytorunoglu.thebestranks.api
 
-import com.zorbeytorunoglu.kLib.MCPlugin
 import com.zorbeytorunoglu.thebestranks.TBR
 import com.zorbeytorunoglu.thebestranks.rank.RankManager
 
