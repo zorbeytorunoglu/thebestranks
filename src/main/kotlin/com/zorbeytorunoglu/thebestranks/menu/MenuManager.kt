@@ -71,7 +71,7 @@ class MenuManager(private val plugin: TBR) {
                 if (slot >= customDesign.invSize) {
                     inventories.add(inventory)
                     page++
-                    inventory = plugin.server.createInventory(null, config.size, config.name.replace("%page%", page.toString()))
+                    inventory = plugin.server.createInventory(null, customDesign.invSize, config.name.replace("%page%", page.toString()))
                     slot = 0
 
                     if (rankIndex >= plugin.rankManager.ranks.size-1) {
