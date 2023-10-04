@@ -4,6 +4,7 @@ import com.zorbeytorunoglu.kLib.MCPlugin
 import com.zorbeytorunoglu.kLib.configuration.createYamlResource
 import com.zorbeytorunoglu.kLib.extensions.registerEvents
 import com.zorbeytorunoglu.kLib.extensions.severe
+import com.zorbeytorunoglu.kLib.task.repeatAsync
 import com.zorbeytorunoglu.thebestranks.api.TBRAPI
 import com.zorbeytorunoglu.thebestranks.commands.RankCommand
 import com.zorbeytorunoglu.thebestranks.config.Config
@@ -42,7 +43,13 @@ class TBR: MCPlugin() {
 
         PAPI(this).register()
 
-        rankManager.loadPlayerRanks(createYamlResource("save.yml").load())
+        val saveFile = createYamlResource("save.yml").load()
+
+        rankManager.loadPlayerRanks(saveFile)
+
+        repeatAsync({
+            rankManager.savePlayerRanks(saveFile)
+        }, 300, 300)
 
     }
 
