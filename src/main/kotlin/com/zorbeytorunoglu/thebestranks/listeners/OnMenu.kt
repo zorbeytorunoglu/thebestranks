@@ -68,7 +68,7 @@ class OnMenu(private val plugin: TBR): Listener {
             val inProgressItemName = plugin.menuManager.config.inProgressItem.itemMeta.displayName
                 .replace("%rank%", nextRank.displayName.colorHex)
 
-            if (event.currentItem.itemMeta.displayName == inProgressItemName) {
+            if (event.currentItem.itemMeta.displayName.colorHex.equals(inProgressItemName.colorHex, true)) {
                 player.closeInventory()
                 plugin.rankManager.rankUp(player, nextRank)
                 return
