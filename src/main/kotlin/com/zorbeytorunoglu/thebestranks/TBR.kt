@@ -25,6 +25,8 @@ class TBR: MCPlugin() {
 
     override fun onEnable() {
 
+        super.onEnable()
+
         if (server.pluginManager.getPlugin("PlaceholderAPI") == null) {
             logger.severe("PlaceholderAPI is needed for thebestranks to run! Disabling the plugin...")
             this.isEnabled = false
@@ -47,9 +49,13 @@ class TBR: MCPlugin() {
 
         rankManager.loadPlayerRanks(saveFile)
 
-        repeatAsync({
-            rankManager.savePlayerRanks(saveFile)
-        }, 300, 300)
+        try {
+            repeatAsync({
+                rankManager.savePlayerRanks(saveFile)
+            }, 300, 300)
+        } catch (e: Exception) {
+            logger.severe("You probably are using a plugin named 'Eco'. It blocks kLib. Auto save feature will be disabled.")
+        }
 
     }
 
