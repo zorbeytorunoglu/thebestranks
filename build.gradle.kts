@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.github.zorbeytorunoglu:kLib:0.0.7")
+    implementation("com.github.zorbeytorunoglu:kLib:0.0.7")
     compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.3")
 }
